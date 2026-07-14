@@ -1,0 +1,40 @@
+# v0 sandbox internal files
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+.snowflake/
+.v0-trash/
+.vercel/
+node_modules/
+.next/
+
+# Environment variables
+.env*.local
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Runtime artifacts
+backend/temp/*
+!backend/temp/.gitkeep
+
+backend/outputs/images/*
+!backend/outputs/images/.gitkeep
+
+backend/outputs/json/*
+!backend/outputs/json/.gitkeep
+
+# PaddleOCR model cache
+.paddleocr/
+
+# Distribution
+*.zip
+
+# Common ignores
+.DS_Store
