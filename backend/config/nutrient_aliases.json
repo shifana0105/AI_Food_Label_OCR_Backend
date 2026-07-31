@@ -1,0 +1,75 @@
+{
+  "_comment": "Maps canonical nutrient names to their known label aliases. Add new aliases here - no Python changes required. Matching is case-insensitive and whitespace-normalized.",
+  "serving": [
+    "serving size",
+    "serving",
+    "serving_size",
+    "portion",
+    "portion size"
+  ],
+  "energy": [
+    "calories",
+    "energy",
+    "calorie",
+    "energy value",
+    "kcal"
+  ],
+  "fat": [
+    "total fat",
+    "totalfat",
+    "fat",
+    "fats",
+    "total fats"
+  ],
+  "saturated_fat": [
+    "saturated fat",
+    "saturatedfat",
+    "saturated_fat",
+    "sat fat",
+    "sat. fat",
+    "saturates"
+  ],
+  "trans_fat": [
+    "trans fat",
+    "transfat",
+    "trans_fat"
+  ],
+  "cholesterol": [
+    "cholesterol"
+  ],
+  "sodium": [
+    "sodium",
+    "salt"
+  ],
+  "carbohydrates": [
+    "total carbohydrate",
+    "total carbohydrates",
+    "totalcarbohydrate",
+    "totalcarbohydrates",
+    "carbohydrate",
+    "carbohydrates",
+    "carbs",
+    "carb"
+  ],
+  "fiber": [
+    "dietary fiber",
+    "dietary fibre",
+    "dietaryfiber",
+    "dietaryfibre",
+    "fiber",
+    "fibre"
+  ],
+  "sugars": [
+    "total sugars",
+    "total sugar",
+    "totalsugars",
+    "sugars",
+    "sugar"
+  ],
+  "protein": [
+    "protein",
+    "proteins",
+    "prot.",
+    "prot"
+  ]
+}

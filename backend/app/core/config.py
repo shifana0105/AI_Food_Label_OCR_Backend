@@ -13,6 +13,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 _BASE_DIR: Path = Path(__file__).resolve().parents[2]
 
+CONFIG_FOLDER: Path = _BASE_DIR / "config"
+
 
 class Settings(BaseSettings):
     """Global application settings, loaded from the environment.
@@ -44,6 +46,8 @@ class Settings(BaseSettings):
     VERSION: str = "2.0.0"
     DEBUG: bool = False
 
+    CONFIG_FOLDER: Path = CONFIG_FOLDER
+
     UPLOAD_FOLDER: Path = _BASE_DIR / "temp"
     OUTPUT_FOLDER: Path = _BASE_DIR / "outputs"
     OUTPUT_IMAGES_FOLDER: Path = OUTPUT_FOLDER / "images"
@@ -62,6 +66,7 @@ class Settings(BaseSettings):
     PREPROCESS_MIN_DIMENSION: int = 600
 
     @field_validator(
+    "CONFIG_FOLDER",
     "UPLOAD_FOLDER",
     "OUTPUT_FOLDER",
     "OUTPUT_IMAGES_FOLDER",

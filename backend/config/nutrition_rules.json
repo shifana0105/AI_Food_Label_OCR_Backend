@@ -1,0 +1,142 @@
+{
+  "version": "1.0.0",
+  "reference_basis": "per_100g",
+  "description": "Deterministic scoring rules for the Nutrition Knowledge Engine. All values are per 100 g (or 100 ml). Bands are evaluated in order: the first band whose 'max' is null or >= the nutrient value is selected. Scores are 0-100 per nutrient and combined using the per-nutrient weights.",
+  "grade_bands": [
+    { "grade": "A", "min_score": 80 },
+    { "grade": "B", "min_score": 65 },
+    { "grade": "C", "min_score": 50 },
+    { "grade": "D", "min_score": 35 },
+    { "grade": "E", "min_score": 0 }
+  ],
+  "nutrients": {
+    "energy": {
+      "feature_key": "energy_100g",
+      "display_name": "Energy",
+      "unit": "kcal",
+      "weight": 1.0,
+      "bands": [
+        { "max": 150, "score": 100, "label": "Low Energy Density", "sentiment": "positive" },
+        { "max": 250, "score": 75, "label": "Moderate Energy Density", "sentiment": "neutral" },
+        { "max": 400, "score": 40, "label": "High Energy Density", "sentiment": "negative" },
+        { "max": null, "score": 10, "label": "Very High Energy Density", "sentiment": "negative" }
+      ],
+      "warnings": [
+        { "min": 400, "message": "High Energy Density (above 400 kcal per 100 g)" }
+      ]
+    },
+    "sugar": {
+      "feature_key": "sugars_100g",
+      "display_name": "Sugar",
+      "unit": "g",
+      "weight": 1.5,
+      "bands": [
+        { "max": 5, "score": 100, "label": "Low Sugar", "sentiment": "positive" },
+        { "max": 22.5, "score": 55, "label": "Moderate Sugar", "sentiment": "neutral" },
+        { "max": 40, "score": 20, "label": "High Sugar", "sentiment": "negative" },
+        { "max": null, "score": 0, "label": "Very High Sugar", "sentiment": "negative" }
+      ],
+      "warnings": [
+        { "min": 22.5, "message": "High Sugar (above 22.5 g per 100 g)" }
+      ]
+    },
+    "added_sugar": {
+      "feature_key": "added_sugars_100g",
+      "display_name": "Added Sugar",
+      "unit": "g",
+      "weight": 1.5,
+      "bands": [
+        { "max": 2.5, "score": 100, "label": "Low Added Sugar", "sentiment": "positive" },
+        { "max": 10, "score": 55, "label": "Moderate Added Sugar", "sentiment": "neutral" },
+        { "max": 20, "score": 20, "label": "High Added Sugar", "sentiment": "negative" },
+        { "max": null, "score": 0, "label": "Very High Added Sugar", "sentiment": "negative" }
+      ],
+      "warnings": [
+        { "min": 10, "message": "High Added Sugar (above 10 g per 100 g)" }
+      ]
+    },
+    "protein": {
+      "feature_key": "proteins_100g",
+      "display_name": "Protein",
+      "unit": "g",
+      "weight": 1.0,
+      "bands": [
+        { "max": 5, "score": 30, "label": "Low Protein", "sentiment": "negative" },
+        { "max": 10, "score": 65, "label": "Source of Protein", "sentiment": "neutral" },
+        { "max": null, "score": 100, "label": "High Protein", "sentiment": "positive" }
+      ],
+      "warnings": []
+    },
+    "fiber": {
+      "feature_key": "fiber_100g",
+      "display_name": "Fiber",
+      "unit": "g",
+      "weight": 1.0,
+      "bands": [
+        { "max": 3, "score": 30, "label": "Low Fiber", "sentiment": "negative" },
+        { "max": 6, "score": 65, "label": "Source of Fiber", "sentiment": "neutral" },
+        { "max": null, "score": 100, "label": "Good Fiber", "sentiment": "positive" }
+      ],
+      "warnings": []
+    },
+    "total_fat": {
+      "feature_key": "fat_100g",
+      "display_name": "Total Fat",
+      "unit": "g",
+      "weight": 1.0,
+      "bands": [
+        { "max": 3, "score": 100, "label": "Low Fat", "sentiment": "positive" },
+        { "max": 17.5, "score": 55, "label": "Moderate Fat", "sentiment": "neutral" },
+        { "max": 30, "score": 20, "label": "High Fat", "sentiment": "negative" },
+        { "max": null, "score": 0, "label": "Very High Fat", "sentiment": "negative" }
+      ],
+      "warnings": [
+        { "min": 17.5, "message": "High Total Fat (above 17.5 g per 100 g)" }
+      ]
+    },
+    "saturated_fat": {
+      "feature_key": "saturated-fat_100g",
+      "display_name": "Saturated Fat",
+      "unit": "g",
+      "weight": 1.5,
+      "bands": [
+        { "max": 1.5, "score": 100, "label": "Low Saturated Fat", "sentiment": "positive" },
+        { "max": 5, "score": 55, "label": "Moderate Saturated Fat", "sentiment": "neutral" },
+        { "max": 10, "score": 20, "label": "High Saturated Fat", "sentiment": "negative" },
+        { "max": null, "score": 0, "label": "Very High Saturated Fat", "sentiment": "negative" }
+      ],
+      "warnings": [
+        { "min": 5, "message": "High Saturated Fat (above 5 g per 100 g)" }
+      ]
+    },
+    "trans_fat": {
+      "feature_key": "trans-fat_100g",
+      "display_name": "Trans Fat",
+      "unit": "g",
+      "weight": 1.5,
+      "bands": [
+        { "max": 0.1, "score": 100, "label": "No Trans Fat", "sentiment": "positive" },
+        { "max": 0.5, "score": 20, "label": "Contains Trans Fat", "sentiment": "negative" },
+        { "max": null, "score": 0, "label": "High Trans Fat", "sentiment": "negative" }
+      ],
+      "warnings": [
+        { "min": 0.1, "message": "Contains Trans Fat (above 0.1 g per 100 g)" }
+      ]
+    },
+    "sodium": {
+      "feature_key": "sodium_100g",
+      "display_name": "Sodium",
+      "unit": "g",
+      "weight": 1.25,
+      "bands": [
+        { "max": 0.12, "score": 100, "label": "Low Sodium", "sentiment": "positive" },
+        { "max": 0.6, "score": 55, "label": "Moderate Sodium", "sentiment": "neutral" },
+        { "max": 1.2, "score": 20, "label": "High Sodium", "sentiment": "negative" },
+        { "max": null, "score": 0, "label": "Very High Sodium", "sentiment": "negative" }
+      ],
+      "warnings": [
+        { "min": 0.6, "message": "High Sodium (above 0.6 g per 100 g)" }
+      ]
+    }
+  }
+}

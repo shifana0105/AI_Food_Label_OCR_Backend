@@ -71,10 +71,96 @@ class OCRData(BaseModel):
     )
 
 
+class ParsedServing(BaseModel):
+    """Serving information extracted from the nutrition label."""
+
+    size: float | None = None
+    unit: str | None = None
+    type: str | None = None
+
+
+class ParsedNutritionValue(BaseModel):
+    """Single nutrition value."""
+
+    value: float | None = None
+    unit: str | None = None
+
+
+class ParsedNutrition(BaseModel):
+    """Structured nutrition extracted from OCR."""
+
+    energy: ParsedNutritionValue
+    fat: ParsedNutritionValue
+    saturated_fat: ParsedNutritionValue
+    carbohydrates: ParsedNutritionValue
+    sugars: ParsedNutritionValue
+    fiber: ParsedNutritionValue
+    protein: ParsedNutritionValue
+    sodium: ParsedNutritionValue
+
+
+class ParsedLabel(BaseModel):
+    """Complete parsed food label."""
+
+    serving: ParsedServing
+
+    nutrition: ParsedNutrition
+
+    ingredients: List[str] = Field(default_factory=list)
+
+    allergens: List[str] = Field(default_factory=list)
+
+
+class PredictionResult(BaseModel):
+    """ML prediction."""
+
+    nutrition_grade: str
+
+    confidence: float | None = None
+
+
+class AnalysisResultModel(BaseModel):
+    """Explainable output of the rule-based Nutrition Knowledge Engine."""
+
+    general_score: int | None = Field(
+        default=None,
+        description="Overall nutrition score from 0 to 100.",
+    )
+
+    nutrition_grade: str = Field(
+        default="unknown",
+        description="Letter grade (A-E) derived from the general score.",
+    )
+
+    positive_reasons: List[str] = Field(
+        default_factory=list,
+        description="Positive nutrition findings, one per nutrient.",
+    )
+
+    negative_reasons: List[str] = Field(
+        default_factory=list,
+        description="Negative nutrition findings, one per nutrient.",
+    )
+
+    warnings: List[str] = Field(
+        default_factory=list,
+        description="Threshold-based nutrition warnings.",
+    )
+
+
 class UploadData(BaseModel):
-    """Payload for the upload endpoint."""
+    """Payload returned by the upload endpoint."""
 
     processing_time: str = Field(
-        ..., description="Total processing time, e.g. '1.42s'."
+        ..., description="Total processing time."
     )
-    ocr: OCRData = Field(..., description="Structured OCR results.")
+
+    ocr: OCRData
+
+    parsed_label: ParsedLabel | None = None
+
+    ml_features: dict = Field(default_factory=dict)
+
+    analysis: AnalysisResultModel | None = None
+
+    prediction: PredictionResult | None = None

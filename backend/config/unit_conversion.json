@@ -1,0 +1,56 @@
+{
+  "_comment": "Unit conversion tables. Each category has a base unit; every unit maps to a factor relative to that base (value_in_base = value * factor). 'unit_aliases' normalizes spelling variants to canonical unit symbols. Extend without changing Python code.",
+  "categories": {
+    "mass": {
+      "base_unit": "g",
+      "units": {
+        "mcg": 0.000001,
+        "mg": 0.001,
+        "g": 1,
+        "kg": 1000
+      }
+    },
+    "energy": {
+      "base_unit": "kcal",
+      "units": {
+        "kcal": 1,
+        "kj": 0.2390057
+      }
+    },
+    "volume": {
+      "base_unit": "ml",
+      "units": {
+        "ml": 1,
+        "l": 1000
+      }
+    }
+  },
+  "unit_aliases": {
+    "ug": "mcg",
+    "\u00b5g": "mcg",
+    "\u03bcg": "mcg",
+    "microgram": "mcg",
+    "micrograms": "mcg",
+    "milligram": "mg",
+    "milligrams": "mg",
+    "gram": "g",
+    "grams": "g",
+    "kilogram": "kg",
+    "kilograms": "kg",
+    "kilocalorie": "kcal",
+    "kilocalories": "kcal",
+    "cal": "kcal",
+    "calories": "kcal",
+    "kilojoule": "kj",
+    "kilojoules": "kj",
+    "kJ": "kj",
+    "milliliter": "ml",
+    "millilitre": "ml",
+    "milliliters": "ml",
+    "millilitres": "ml",
+    "liter": "l",
+    "litre": "l",
+    "liters": "l",
+    "litres": "l"
+  }
+}
