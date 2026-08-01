@@ -70,7 +70,12 @@ class JSONFormatter:
                     fiber=nutrient("fiber"),
                     protein=nutrient("protein"),
                     sodium=nutrient("sodium"),
+                    trans_fat=nutrient("trans_fat"),
+                    cholesterol=nutrient("cholesterol"),
+                    added_sugar=nutrient("added_sugar"),
                 ),
+                vitamins=parsed_label.get("vitamins", {}),
+                minerals=parsed_label.get("minerals", {}),
                 ingredients=parsed_label.get("ingredients", []),
                 allergens=parsed_label.get("allergens", []),
             )

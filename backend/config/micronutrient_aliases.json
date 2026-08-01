@@ -1,0 +1,173 @@
+{
+  "_comment": "Maps canonical vitamin/mineral names to label aliases, including chemical names and common OCR-error variants. Extend without changing Python code. Matching is case-insensitive, word-bounded, longest-alias-first.",
+  "vitamins": {
+    "vitamin_a": [
+      "vitamin a",
+      "vit a",
+      "vit. a",
+      "vitamin-a",
+      "vltamin a",
+      "v1tamin a",
+      "retinol"
+    ],
+    "vitamin_b1": [
+      "vitamin b1",
+      "vit b1",
+      "vit. b1",
+      "vitamin b-1",
+      "thiamine",
+      "thiamin",
+      "vltamin b1"
+    ],
+    "vitamin_b2": [
+      "vitamin b2",
+      "vit b2",
+      "vit. b2",
+      "vitamin b-2",
+      "riboflavin",
+      "riboflavine",
+      "vltamin b2"
+    ],
+    "vitamin_b3": [
+      "vitamin b3",
+      "vit b3",
+      "vit. b3",
+      "vitamin b-3",
+      "niacin",
+      "niacinamide",
+      "nicotinamide",
+      "vltamin b3"
+    ],
+    "vitamin_b5": [
+      "vitamin b5",
+      "vit b5",
+      "vit. b5",
+      "vitamin b-5",
+      "pantothenic acid",
+      "pantothenate",
+      "vltamin b5"
+    ],
+    "vitamin_b6": [
+      "vitamin b6",
+      "vit b6",
+      "vit. b6",
+      "vitamin b-6",
+      "pyridoxine",
+      "vltamin b6"
+    ],
+    "vitamin_b7": [
+      "vitamin b7",
+      "vit b7",
+      "vit. b7",
+      "vitamin b-7",
+      "biotin",
+      "vltamin b7"
+    ],
+    "vitamin_b9": [
+      "vitamin b9",
+      "vit b9",
+      "vit. b9",
+      "vitamin b-9",
+      "folate",
+      "folic acid",
+      "folacin",
+      "vltamin b9"
+    ],
+    "vitamin_b12": [
+      "vitamin b12",
+      "vit b12",
+      "vit. b12",
+      "vitamin b-12",
+      "cobalamin",
+      "cyanocobalamin",
+      "vltamin b12"
+    ],
+    "vitamin_c": [
+      "vitamin c",
+      "vit c",
+      "vit. c",
+      "vitamin-c",
+      "ascorbic acid",
+      "vltamin c",
+      "v1tamin c"
+    ],
+    "vitamin_d": [
+      "vitamin d",
+      "vit d",
+      "vit. d",
+      "vitamin d2",
+      "vitamin d3",
+      "cholecalciferol",
+      "vltamin d",
+      "v1tamin d"
+    ],
+    "vitamin_e": [
+      "vitamin e",
+      "vit e",
+      "vit. e",
+      "vitamin-e",
+      "tocopherol",
+      "alpha-tocopherol",
+      "vltamin e"
+    ],
+    "vitamin_k": [
+      "vitamin k",
+      "vit k",
+      "vit. k",
+      "vitamin k1",
+      "vitamin k2",
+      "phylloquinone",
+      "vltamin k"
+    ]
+  },
+  "minerals": {
+    "calcium": [
+      "calcium",
+      "calclum",
+      "ca1cium",
+      "calcium carbonate"
+    ],
+    "iron": [
+      "iron",
+      "lron",
+      "ir0n",
+      "ferrous"
+    ],
+    "magnesium": [
+      "magnesium",
+      "magneslum",
+      "maqnesium"
+    ],
+    "phosphorus": [
+      "phosphorus",
+      "phosphorous",
+      "phosph0rus"
+    ],
+    "potassium": [
+      "potassium",
+      "potasslum",
+      "p0tassium",
+      "potassiurn"
+    ],
+    "zinc": [
+      "zinc",
+      "zlnc",
+      "z1nc"
+    ],
+    "copper": [
+      "copper",
+      "c0pper",
+      "coppcr"
+    ],
+    "selenium": [
+      "selenium",
+      "selenlum",
+      "se1enium"
+    ],
+    "iodine": [
+      "iodine",
+      "lodine",
+      "iodlne"
+    ]
+  }
+}

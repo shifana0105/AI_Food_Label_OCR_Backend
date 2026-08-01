@@ -98,6 +98,17 @@ class ParsedNutrition(BaseModel):
     protein: ParsedNutritionValue
     sodium: ParsedNutritionValue
 
+    # Additive optional fields (backward compatible).
+    trans_fat: ParsedNutritionValue = Field(
+        default_factory=ParsedNutritionValue
+    )
+    cholesterol: ParsedNutritionValue = Field(
+        default_factory=ParsedNutritionValue
+    )
+    added_sugar: ParsedNutritionValue = Field(
+        default_factory=ParsedNutritionValue
+    )
+
 
 class ParsedLabel(BaseModel):
     """Complete parsed food label."""
@@ -105,6 +116,16 @@ class ParsedLabel(BaseModel):
     serving: ParsedServing
 
     nutrition: ParsedNutrition
+
+    vitamins: dict = Field(
+        default_factory=dict,
+        description="Vitamins extracted from the label, stored separately.",
+    )
+
+    minerals: dict = Field(
+        default_factory=dict,
+        description="Minerals extracted from the label, stored separately.",
+    )
 
     ingredients: List[str] = Field(default_factory=list)
 

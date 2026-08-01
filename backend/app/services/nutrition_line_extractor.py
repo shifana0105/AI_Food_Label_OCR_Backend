@@ -24,6 +24,7 @@ class NutritionLineExtractor:
 
             "fat",
             "saturated",
+            "saturates",
             "trans",
 
             "cholesterol",
@@ -39,6 +40,10 @@ class NutritionLineExtractor:
             "sugar",
 
             "protein",
+
+            "salt",
+            "kcal",
+            "kj",
 
             "vitamin",
             "calcium",
@@ -117,12 +122,8 @@ class NutritionLineExtractor:
             ]:
                 continue
 
-            # Skip added sugars line
-            if "added sugars" in lower:
-                continue
-
-            # Skip ingredient list entries
-            if lower == "sugar":
+            # Skip bare ingredient list entries (no amounts)
+            if lower in ("sugar", "salt"):
                 continue
 
             if self.contains_keyword(line):

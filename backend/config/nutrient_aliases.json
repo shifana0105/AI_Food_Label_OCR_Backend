@@ -1,25 +1,34 @@
 {
-  "_comment": "Maps canonical nutrient names to their known label aliases. Add new aliases here - no Python changes required. Matching is case-insensitive and whitespace-normalized.",
+  "_comment": "Maps canonical nutrient names to their known label aliases. Add new aliases here - no Python changes required. Matching is case-insensitive and whitespace-normalized. Includes common OCR-error variants (l/1, o/0, e/c confusions).",
   "serving": [
     "serving size",
     "serving",
     "serving_size",
     "portion",
-    "portion size"
+    "portion size",
+    "servlng size",
+    "serving slze"
   ],
   "energy": [
     "calories",
     "energy",
     "calorie",
     "energy value",
-    "kcal"
+    "kcal",
+    "energv",
+    "enerqy",
+    "calorles",
+    "cal0ries"
   ],
   "fat": [
     "total fat",
     "totalfat",
     "fat",
     "fats",
-    "total fats"
+    "total fats",
+    "t0tal fat",
+    "tota1 fat",
+    "totai fat"
   ],
   "saturated_fat": [
     "saturated fat",
@@ -27,19 +36,34 @@
     "saturated_fat",
     "sat fat",
     "sat. fat",
-    "saturates"
+    "saturates",
+    "of which saturates",
+    "saturaled fat",
+    "salurated fat"
   ],
   "trans_fat": [
     "trans fat",
     "transfat",
-    "trans_fat"
+    "trans_fat",
+    "trans fatty acids",
+    "lrans fat"
   ],
   "cholesterol": [
-    "cholesterol"
+    "cholesterol",
+    "cholesterols",
+    "choleslerol",
+    "ch0lesterol"
   ],
   "sodium": [
     "sodium",
-    "salt"
+    "sodlum",
+    "s0dium",
+    "sodiurn"
+  ],
+  "salt": [
+    "salt",
+    "sait",
+    "sa1t"
   ],
   "carbohydrates": [
     "total carbohydrate",
@@ -49,7 +73,12 @@
     "carbohydrate",
     "carbohydrates",
     "carbs",
-    "carb"
+    "carb",
+    "carbohydrale",
+    "carbohydrales",
+    "carbohvdrate",
+    "carb0hydrate",
+    "total carbohydrale"
   ],
   "fiber": [
     "dietary fiber",
@@ -57,19 +86,42 @@
     "dietaryfiber",
     "dietaryfibre",
     "fiber",
-    "fibre"
+    "fibre",
+    "dietary flber",
+    "dielary fiber",
+    "dletary fibre",
+    "flber",
+    "flbre"
   ],
   "sugars": [
     "total sugars",
     "total sugar",
     "totalsugars",
     "sugars",
-    "sugar"
+    "sugar",
+    "of which sugars",
+    "sugams",
+    "suqars",
+    "t0tal sugars"
+  ],
+  "added_sugar": [
+    "added sugar",
+    "added sugars",
+    "addedsugar",
+    "addedsugars",
+    "incl. added sugars",
+    "includes added sugars",
+    "added suqars",
+    "added sugams"
   ],
   "protein": [
     "protein",
     "proteins",
     "prot.",
-    "prot"
+    "prot",
+    "proteln",
+    "prote1n",
+    "protien",
+    "pr0tein"
   ]
 }
