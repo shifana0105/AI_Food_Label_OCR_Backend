@@ -1,0 +1,50 @@
+{
+    "product_name": "Sandwich Cookies",
+    "brand": "OREO",
+    "serving": {
+        "size": "34",
+        "unit": "g",
+        "type": "3 cookies"
+    },
+    "nutrition": {
+        "energy": "160 Calories",
+        "protein": "1g",
+        "carbohydrate": "25g",
+        "total_sugars": "14g",
+        "added_sugars": "14g",
+        "dietary_fibre": "less than 1g",
+        "fat": "7g",
+        "saturated_fat": "2g",
+        "trans_fat": "0g",
+        "monounsaturated_fat": null,
+        "polyunsaturated_fat": null,
+        "cholesterol": "0mg",
+        "sodium": "135mg"
+    },
+    "vitamins": {
+        "Vitamin D": "0mcg"
+    },
+    "minerals": {
+        "Calcium": "10mg",
+        "Iron": "1.4mg",
+        "Potassium": "50mg"
+    },
+    "ingredients": [
+        "UNBLEACHED ENRICHED FLOUR (WHEAT FLOUR, NIACIN, REDUCED IRON, THIAMINE MONONITRATE {VITAMIN B1}, RIBOFLAVIN {VITAMIN B2}, FOLIC ACID)",
+        "SUGAR",
+        "PALM AND/OR CANOLA OIL",
+        "COCOA (PROCESSED WITH ALKALI)",
+        "HIGH FRUCTOSE CORN SYRUP",
+        "LEAVENING (BAKING SODA AND/OR CALCIUM PHOSPHATE)",
+        "CORNSTARCH",
+        "SALT",
+        "SOY LECITHIN",
+        "VANILLIN - AN ARTIFICIAL FLAVOR",
+        "CHOCOLATE"
+    ],
+    "allergens": [
+        "WHEAT",
+        "SOY"
+    ],
+    "ocr_confidence": "high"
+}

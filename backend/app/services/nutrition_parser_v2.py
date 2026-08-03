@@ -65,7 +65,32 @@ class NutritionParserV2:
         """
 
         # ── Step 0: OCR normalisation ──────────────────────────────────
+        # norm_text = normalize_text(text)
+
+        # result = {
+        #     "serving": self.serving_parser.parse(norm_text),
+        #     "nutrition": {},
+        #     "vitamins": {},
+        #     "minerals": {},
+        #     "ingredients": [],
+        #     "allergens": [],
+        # }
+
+        # lines = self.extractor.extract(norm_text)
+
+        # logger.debug("Extracted %d nutrition lines.", len(lines))
+
+
+        # ── Step 0: OCR normalisation ──────────────────────────────────
         norm_text = normalize_text(text)
+
+        # TEMP DEBUG ---------------------------------------------------
+        logger.info("========================")
+        logger.info("AFTER OCR NORMALIZER")
+        logger.info("========================")
+        for i, ln in enumerate(norm_text.split("\n")):
+            logger.info("%d: %s", i, ln)
+        # END TEMP DEBUG -------------------------------------------------
 
         result = {
             "serving": self.serving_parser.parse(norm_text),
@@ -79,6 +104,14 @@ class NutritionParserV2:
         lines = self.extractor.extract(norm_text)
 
         logger.debug("Extracted %d nutrition lines.", len(lines))
+
+        # TEMP DEBUG ---------------------------------------------------
+        logger.info("========================")
+        logger.info("AFTER NUTRITION LINE EXTRACTOR")
+        logger.info("========================")
+        for ln in lines:
+            logger.info("%s", ln)
+        # END TEMP DEBUG -------------------------------------------------
 
         for line in lines:
 
@@ -119,6 +152,31 @@ class NutritionParserV2:
                     "unit": parsed["unit"],
                 }
 
+        # self._derive_sodium_from_salt(result["nutrition"])
+
+        # # Vitamins & minerals: stored SEPARATELY from nutrition.
+        # # MicronutrientParser applies its own normalize_text internally;
+        # # passing norm_text is idempotent and avoids double-parsing the raw.
+        # micro = self.micronutrients.parse(norm_text)
+        # result["vitamins"] = micro["vitamins"]
+        # result["minerals"] = micro["minerals"]
+
+        # # Ingredients in original order (no classification).
+        # # raw_text (unmerged) is preferred so that one-per-line layouts
+        # # without trailing commas are correctly split by the extractor.
+        # result["ingredients"] = self.ingredients.extract(
+        #     text, raw_text=raw_text
+        # )
+
+
+        # TEMP DEBUG ---------------------------------------------------
+        logger.info("========================")
+        logger.info("AFTER GENERIC NUTRITION PARSER")
+        logger.info("========================")
+        for nutrient, data in result["nutrition"].items():
+            logger.info("%s: %s", nutrient, data)
+        # END TEMP DEBUG -------------------------------------------------
+
         self._derive_sodium_from_salt(result["nutrition"])
 
         # Vitamins & minerals: stored SEPARATELY from nutrition.
@@ -128,12 +186,34 @@ class NutritionParserV2:
         result["vitamins"] = micro["vitamins"]
         result["minerals"] = micro["minerals"]
 
+        # TEMP DEBUG ---------------------------------------------------
+        logger.info("========================")
+        logger.info("AFTER MICRONUTRIENT PARSER")
+        logger.info("========================")
+        logger.info("Vitamins:")
+        for name, data in result["vitamins"].items():
+            logger.info("  %s: %s", name, data)
+        logger.info("Minerals:")
+        for name, data in result["minerals"].items():
+            logger.info("  %s: %s", name, data)
+        # END TEMP DEBUG -------------------------------------------------
+
         # Ingredients in original order (no classification).
         # raw_text (unmerged) is preferred so that one-per-line layouts
         # without trailing commas are correctly split by the extractor.
         result["ingredients"] = self.ingredients.extract(
             text, raw_text=raw_text
         )
+
+        # TEMP DEBUG ---------------------------------------------------
+        logger.info("========================")
+        logger.info("AFTER INGREDIENT EXTRACTOR")
+        logger.info("========================")
+        for ing in result["ingredients"]:
+            logger.info("- %s", ing)
+        if not result["ingredients"]:
+            logger.info("(none extracted)")
+        # END TEMP DEBUG -------------------------------------------------
 
         # Allergens: detected from ingredient list + full OCR text
         # (catches explicit "Contains:" statements + inline mentions).

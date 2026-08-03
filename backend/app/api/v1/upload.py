@@ -1,7 +1,9 @@
 """Image upload and OCR pipeline endpoint (v1)."""
 
 import time
+import json as _json  # TEMP DEBUG
 
+from app.services.gemini_service import GeminiService
 from fastapi import APIRouter, Depends, File, UploadFile
 
 from app.api.deps import (
@@ -119,13 +121,61 @@ async def upload_image(
         # logger.info which ran on every production request and caused
         # unbounded disk growth in the process CWD.
 
+        # ocr_result = ocr_engine.extract_text(processed)
+
+        # layout = LayoutReconstructor()
+
+        # reconstructed_lines = layout.reconstruct(
+        #     ocr_result.lines
+        # )
+
+        # cleaned_lines = text_processor.clean_lines(
+        #     reconstructed_lines
+        # )
+
+        # raw_text = text_processor.build_raw_text(
+        #     cleaned_lines
+        # )
+
+        # clean_text = text_processor.build_clean_text(
+        #     cleaned_lines
+        # )
+
+        # # BUG-06 fix: replaced print() with proper logger call so the
+        # # output respects the configured LOG_LEVEL and is timestamped.
+        # logger.debug("Clean text produced by OCR pipeline:\n%s", clean_text)
+
+        # pipeline_result = pipeline.process(
+        #     clean_text, raw_text=raw_text
+        # )
+
         ocr_result = ocr_engine.extract_text(processed)
+
+        # TEMP DEBUG ---------------------------------------------------
+        logger.info("========================")
+        logger.info("RAW OCR LINES")
+        logger.info("========================")
+        for ln in ocr_result.lines:
+            logger.info("[%s]", ln.text)
+            logger.info("confidence: %.4f", ln.confidence)
+            logger.info("bounding_box: %s", ln.bounding_box)
+        # END TEMP DEBUG -------------------------------------------------
 
         layout = LayoutReconstructor()
 
         reconstructed_lines = layout.reconstruct(
             ocr_result.lines
         )
+
+        # TEMP DEBUG ---------------------------------------------------
+        logger.info("========================")
+        logger.info("AFTER LAYOUT RECONSTRUCTION")
+        logger.info("========================")
+        for ln in reconstructed_lines:
+            logger.info("[%s]", ln.text)
+            logger.info("confidence: %.4f", ln.confidence)
+            logger.info("bounding_box: %s", ln.bounding_box)
+        # END TEMP DEBUG -------------------------------------------------
 
         cleaned_lines = text_processor.clean_lines(
             reconstructed_lines
@@ -142,6 +192,14 @@ async def upload_image(
         # BUG-06 fix: replaced print() with proper logger call so the
         # output respects the configured LOG_LEVEL and is timestamped.
         logger.debug("Clean text produced by OCR pipeline:\n%s", clean_text)
+
+        # TEMP DEBUG ---------------------------------------------------
+        logger.info("========================")
+        logger.info("AFTER TEXTPROCESSOR (clean_text as received by NutritionPipeline)")
+        logger.info("========================")
+        for i, ln in enumerate(clean_text.split("\n")):
+            logger.info("%d: %s", i, ln)
+        # END TEMP DEBUG -------------------------------------------------
 
         pipeline_result = pipeline.process(
             clean_text, raw_text=raw_text
@@ -178,3 +236,17 @@ async def upload_image(
         message="Image processed successfully.",
         data=response_data,
     )
+
+@router.post("/gemini-test")
+async def gemini_test(file: UploadFile = File(...)):
+    """
+    Temporary endpoint to verify Gemini Vision integration.
+    """
+
+    image_bytes = await file.read()
+
+    service = GeminiService()
+
+    result = service.extract(image_bytes)
+
+    return result
