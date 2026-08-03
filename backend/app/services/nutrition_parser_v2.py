@@ -15,15 +15,17 @@ Salt is converted to sodium (1 g salt = 400 mg sodium) when sodium
 itself is not declared.
 """
 
-from typing import Dict
+from typing import Dict, Optional
 
 from app.core.logger import get_logger
+from app.services.allergen_detector import AllergenDetector
 from app.services.nutrition_line_extractor import NutritionLineExtractor
 from app.services.generic_nutrition_parser import GenericNutritionParser
 from app.services.nutrient_normalizer import NutrientNormalizer
 from app.services.micronutrient_parser import MicronutrientParser
 from app.services.ingredient_extractor import IngredientExtractor
 from app.services.serving_parser import ServingParser
+from app.utils.ocr_normalizer import normalize_text
 
 logger = get_logger(__name__)
 
@@ -41,20 +43,40 @@ class NutritionParserV2:
         self.micronutrients = MicronutrientParser()
         self.ingredients = IngredientExtractor()
         self.serving_parser = ServingParser()
+        self.allergen_detector = AllergenDetector()
 
     # ------------------------------------------------------------------
 
-    def parse(self, text: str) -> Dict:
+    def parse(self, text: str, raw_text: Optional[str] = None) -> Dict:
+        """Parse the full nutrition label.
+
+        Step 0: Apply OCR normalisation to *text*.  All downstream
+                parsers operate on the normalised copy; *raw_text*
+                (unmerged per-line OCR output) is only used by
+                IngredientExtractor to recover one-per-line ingredient
+                layouts.
+
+        Args:
+            text:     Merged/cleaned OCR text from TextProcessor.
+            raw_text: Optional unmerged text (one OCR line per \n).
+                      Passed to IngredientExtractor so that per-line
+                      ingredient layouts without trailing commas are
+                      correctly split.
+        """
+
+        # ── Step 0: OCR normalisation ──────────────────────────────────
+        norm_text = normalize_text(text)
 
         result = {
-            "serving": self.serving_parser.parse(text),
+            "serving": self.serving_parser.parse(norm_text),
             "nutrition": {},
             "vitamins": {},
             "minerals": {},
             "ingredients": [],
+            "allergens": [],
         }
 
-        lines = self.extractor.extract(text)
+        lines = self.extractor.extract(norm_text)
 
         logger.debug("Extracted %d nutrition lines.", len(lines))
 
@@ -100,20 +122,33 @@ class NutritionParserV2:
         self._derive_sodium_from_salt(result["nutrition"])
 
         # Vitamins & minerals: stored SEPARATELY from nutrition.
-        micro = self.micronutrients.parse(text)
+        # MicronutrientParser applies its own normalize_text internally;
+        # passing norm_text is idempotent and avoids double-parsing the raw.
+        micro = self.micronutrients.parse(norm_text)
         result["vitamins"] = micro["vitamins"]
         result["minerals"] = micro["minerals"]
 
         # Ingredients in original order (no classification).
-        result["ingredients"] = self.ingredients.extract(text)
+        # raw_text (unmerged) is preferred so that one-per-line layouts
+        # without trailing commas are correctly split by the extractor.
+        result["ingredients"] = self.ingredients.extract(
+            text, raw_text=raw_text
+        )
+
+        # Allergens: detected from ingredient list + full OCR text
+        # (catches explicit "Contains:" statements + inline mentions).
+        result["allergens"] = self.allergen_detector.detect_combined(
+            result["ingredients"], norm_text
+        )
 
         logger.info(
             "NutritionParserV2 parsed %d nutrients, %d vitamins, "
-            "%d minerals, %d ingredients (serving=%s).",
+            "%d minerals, %d ingredients, %d allergens (serving=%s).",
             len(result["nutrition"]),
             len(result["vitamins"]),
             len(result["minerals"]),
             len(result["ingredients"]),
+            len(result["allergens"]),
             result["serving"],
         )
 

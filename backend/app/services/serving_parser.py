@@ -119,6 +119,10 @@ class ServingParser:
             size = float(match.group(1).replace(",", "."))
             unit = match.group(2).lower()
 
+            # BUG-05 fix: _normalize_size was defined but never called.
+            # Converts 'l' -> 'ml' so downstream per-100ml scaling is correct.
+            size, unit = self._normalize_size(size, unit)
+
             return size, unit
 
         return None, None

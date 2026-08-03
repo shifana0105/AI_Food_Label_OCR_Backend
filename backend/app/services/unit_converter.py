@@ -33,7 +33,13 @@ class UnitConverter:
         "sugars": "sugars_100g",
         "fiber": "fiber_100g",
         "protein": "proteins_100g",
-        "sodium": "sodium_100g"
+        "sodium": "sodium_100g",
+        # BUG-02 fix: trans fat was parsed but never reached the engine
+        # because this key was absent from the mapping.
+        "trans_fat": "trans-fat_100g",
+        # BUG-03 fix: added sugar was parsed but never reached the engine
+        # because this key was absent from the mapping.
+        "added_sugar": "added_sugars_100g",
     }
 
     def __init__(self, config_path: Optional[Path] = None):

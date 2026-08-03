@@ -36,10 +36,18 @@ class NutritionPipeline:
 
     # ----------------------------------------------------------
 
-    def process(self, clean_text: str):
+    def process(self, clean_text: str, raw_text: str = None):
 
         """
         Executes the entire nutrition prediction pipeline.
+
+        Args:
+            clean_text: Merged/normalised OCR text from TextProcessor.
+            raw_text:   Optional unmerged line-by-line OCR text.  Passed
+                        to NutritionParserV2 for ingredient extraction so
+                        that one-per-line ingredient layouts (no trailing
+                        commas) are correctly split rather than merged
+                        into a single space-separated blob.
 
         Returns:
 
@@ -53,7 +61,7 @@ class NutritionPipeline:
 
         # Step 1
         parsed_label = self.parser.parse(
-            clean_text
+            clean_text, raw_text=raw_text
         )
 
         # Step 2

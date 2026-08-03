@@ -1,13 +1,12 @@
 """Image upload and OCR pipeline endpoint (v1)."""
 
 import time
-import cv2
-from app.services.layout_reconstructor import LayoutReconstructor
 
 from fastapi import APIRouter, Depends, File, UploadFile
 
 from app.api.deps import (
     get_json_formatter,
+    get_nutrition_pipeline,
     get_ocr_engine,
     get_preprocessor,
     get_text_processor,
@@ -17,10 +16,11 @@ from app.core.exceptions import FileTooLargeError, OCRProcessingError, Validatio
 from app.core.logger import get_logger
 from app.models.response import APIResponse, ErrorResponse, UploadData
 from app.services.json_formatter import JSONFormatter
+from app.services.layout_reconstructor import LayoutReconstructor
+from app.services.nutrition_pipeline import NutritionPipeline
 from app.services.ocr_engine import OCREngine
 from app.services.preprocess import ImagePreprocessor
 from app.services.text_processor import TextProcessor
-from app.services.nutrition_pipeline import NutritionPipeline
 from app.utils.image_utils import (
     delete_file,
     generate_unique_filename,
@@ -54,6 +54,10 @@ async def upload_image(
     text_processor: TextProcessor = Depends(get_text_processor),
     formatter: JSONFormatter = Depends(get_json_formatter),
     ocr_engine: OCREngine = Depends(get_ocr_engine),
+    # BUG-01 fix: pipeline is now a process-wide singleton injected via
+    # deps.get_nutrition_pipeline (lru_cache). The 422 MB Random Forest
+    # model is therefore loaded exactly once, not on every request.
+    pipeline: NutritionPipeline = Depends(get_nutrition_pipeline),
 ) -> APIResponse[UploadData]:
 
     started = time.perf_counter()
@@ -111,11 +115,9 @@ async def upload_image(
 
         processed = preprocessor.process(image)
 
-        # -----------------------------
-        # SAVE PREPROCESSED IMAGE
-        # -----------------------------
-        cv2.imwrite("processed_debug.jpg", processed)
-        logger.info("Saved processed image as processed_debug.jpg")
+        # BUG-06 fix: removed cv2.imwrite("processed_debug.jpg") and its
+        # logger.info which ran on every production request and caused
+        # unbounded disk growth in the process CWD.
 
         ocr_result = ocr_engine.extract_text(processed)
 
@@ -137,13 +139,12 @@ async def upload_image(
             cleaned_lines
         )
 
-        print("\n========== CLEAN TEXT ==========\n")
-        print(clean_text)
-
-        pipeline = NutritionPipeline()
+        # BUG-06 fix: replaced print() with proper logger call so the
+        # output respects the configured LOG_LEVEL and is timestamped.
+        logger.debug("Clean text produced by OCR pipeline:\n%s", clean_text)
 
         pipeline_result = pipeline.process(
-            clean_text
+            clean_text, raw_text=raw_text
         )
 
     finally:

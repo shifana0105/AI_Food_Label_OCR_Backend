@@ -6,8 +6,12 @@
       "vit a",
       "vit. a",
       "vitamin-a",
+      "vitamina",
       "vltamin a",
+      "vltamina",
       "v1tamin a",
+      "v1tamina",
+      "vitarnin a",
       "retinol"
     ],
     "vitamin_b1": [
@@ -15,90 +19,128 @@
       "vit b1",
       "vit. b1",
       "vitamin b-1",
+      "vitamin 81",
+      "vitamin81",
+      "vit 81",
       "thiamine",
       "thiamin",
-      "vltamin b1"
+      "vltamin b1",
+      "vltamin 81"
     ],
     "vitamin_b2": [
       "vitamin b2",
       "vit b2",
       "vit. b2",
       "vitamin b-2",
+      "vitamin 82",
+      "vitamin82",
+      "vit 82",
       "riboflavin",
       "riboflavine",
-      "vltamin b2"
+      "vltamin b2",
+      "vltamin 82"
     ],
     "vitamin_b3": [
       "vitamin b3",
       "vit b3",
       "vit. b3",
       "vitamin b-3",
+      "vitamin 83",
+      "vitamin83",
+      "vit 83",
       "niacin",
       "niacinamide",
       "nicotinamide",
-      "vltamin b3"
+      "vltamin b3",
+      "vltamin 83"
     ],
     "vitamin_b5": [
       "vitamin b5",
       "vit b5",
       "vit. b5",
       "vitamin b-5",
+      "vitamin 85",
+      "vitamin85",
+      "vit 85",
       "pantothenic acid",
       "pantothenate",
-      "vltamin b5"
+      "vltamin b5",
+      "vltamin 85"
     ],
     "vitamin_b6": [
       "vitamin b6",
       "vit b6",
       "vit. b6",
       "vitamin b-6",
+      "vitamin 86",
+      "vitamin86",
+      "vit 86",
       "pyridoxine",
-      "vltamin b6"
+      "vltamin b6",
+      "vltamin 86"
     ],
     "vitamin_b7": [
       "vitamin b7",
       "vit b7",
       "vit. b7",
       "vitamin b-7",
+      "vitamin 87",
+      "vitamin87",
+      "vit 87",
       "biotin",
-      "vltamin b7"
+      "vltamin b7",
+      "vltamin 87"
     ],
     "vitamin_b9": [
       "vitamin b9",
       "vit b9",
       "vit. b9",
       "vitamin b-9",
+      "vitamin 89",
+      "vitamin89",
+      "vit 89",
       "folate",
       "folic acid",
       "folacin",
-      "vltamin b9"
+      "vltamin b9",
+      "vltamin 89"
     ],
     "vitamin_b12": [
       "vitamin b12",
       "vit b12",
       "vit. b12",
       "vitamin b-12",
+      "vitamin 812",
+      "vitamin812",
+      "vit 812",
       "cobalamin",
       "cyanocobalamin",
-      "vltamin b12"
+      "vltamin b12",
+      "vltamin 812"
     ],
     "vitamin_c": [
       "vitamin c",
       "vit c",
       "vit. c",
       "vitamin-c",
+      "vitaminc",
       "ascorbic acid",
       "vltamin c",
+      "vltaminc",
       "v1tamin c"
     ],
     "vitamin_d": [
       "vitamin d",
       "vit d",
       "vit. d",
+      "vitamind",
       "vitamin d2",
+      "vitamind2",
       "vitamin d3",
+      "vitamind3",
       "cholecalciferol",
       "vltamin d",
+      "vltamind",
       "v1tamin d"
     ],
     "vitamin_e": [
@@ -106,18 +148,24 @@
       "vit e",
       "vit. e",
       "vitamin-e",
+      "vitamine",
       "tocopherol",
       "alpha-tocopherol",
-      "vltamin e"
+      "vltamin e",
+      "vltamine"
     ],
     "vitamin_k": [
       "vitamin k",
       "vit k",
       "vit. k",
+      "vitamink",
       "vitamin k1",
+      "vitamink1",
       "vitamin k2",
+      "vitamink2",
       "phylloquinone",
-      "vltamin k"
+      "vltamin k",
+      "vltamink"
     ]
   },
   "minerals": {
@@ -125,49 +173,74 @@
       "calcium",
       "calclum",
       "ca1cium",
-      "calcium carbonate"
+      "calcium carbonate",
+      "calcium phosphate"
     ],
     "iron": [
       "iron",
       "lron",
       "ir0n",
-      "ferrous"
+      "ferrous",
+      "ferric"
     ],
     "magnesium": [
       "magnesium",
       "magneslum",
-      "maqnesium"
+      "maqnesium",
+      "magnesium oxide"
     ],
     "phosphorus": [
       "phosphorus",
       "phosphorous",
-      "phosph0rus"
+      "phosph0rus",
+      "phosphate"
     ],
     "potassium": [
       "potassium",
       "potasslum",
       "p0tassium",
-      "potassiurn"
+      "potassiurn",
+      "potassium chloride"
     ],
     "zinc": [
       "zinc",
       "zlnc",
-      "z1nc"
+      "z1nc",
+      "zinc sulphate",
+      "zinc sulfate",
+      "zinc oxide"
     ],
     "copper": [
       "copper",
       "c0pper",
-      "coppcr"
+      "coppcr",
+      "copper sulphate",
+      "copper sulfate"
+    ],
+    "manganese": [
+      "manganese",
+      "manganesc",
+      "manganese sulphate"
     ],
     "selenium": [
       "selenium",
       "selenlum",
-      "se1enium"
+      "se1enium",
+      "sodium selenite"
     ],
     "iodine": [
       "iodine",
       "lodine",
-      "iodlne"
+      "iodlne",
+      "potassium iodide"
+    ],
+    "chromium": [
+      "chromium",
+      "chr0mium"
+    ],
+    "molybdenum": [
+      "molybdenum",
+      "m0lybdenum"
     ]
   }
 }

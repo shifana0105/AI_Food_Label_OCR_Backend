@@ -9,6 +9,7 @@ tests (``app.dependency_overrides``).
 from functools import lru_cache
 
 from app.services.json_formatter import JSONFormatter
+from app.services.nutrition_pipeline import NutritionPipeline
 from app.services.ocr_engine import OCREngine
 from app.services.preprocess import ImagePreprocessor
 from app.services.text_processor import TextProcessor
@@ -39,3 +40,17 @@ def get_ocr_engine() -> OCREngine:
     first call to :meth:`OCREngine.extract_text`.
     """
     return OCREngine.get_instance()
+
+
+@lru_cache(maxsize=1)
+def get_nutrition_pipeline() -> NutritionPipeline:
+    """Provide the shared NutritionPipeline singleton.
+
+    BUG-01 fix: NutritionPipeline was previously instantiated inside the
+    upload route handler on every request, causing MLPredictor.__init__
+    to call joblib.load() (loading a 422 MB Random Forest model) on every
+    single request.  With lru_cache the pipeline — and therefore the ML
+    model — is loaded exactly once per process, matching the pattern used
+    by OCREngine, ImagePreprocessor, TextProcessor, and JSONFormatter.
+    """
+    return NutritionPipeline()

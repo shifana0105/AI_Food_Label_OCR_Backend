@@ -38,6 +38,10 @@ class NutritionLineExtractor:
 
             "sugars",
             "sugar",
+            # Added-sugar OCR variants: "of whichAdded 30g", "of which added"
+            "added",
+            "of which",
+            "includes",
 
             "protein",
 
@@ -48,7 +52,16 @@ class NutritionLineExtractor:
             "vitamin",
             "calcium",
             "iron",
-            "potassium"
+            "potassium",
+            # Additional minerals so their split-line values are not filtered
+            "zinc",
+            "magnesium",
+            "phosphorus",
+            "manganese",
+            "selenium",
+            "iodine",
+            "copper",
+            "chromium",
         ]
 
     # -------------------------------------------------------------
