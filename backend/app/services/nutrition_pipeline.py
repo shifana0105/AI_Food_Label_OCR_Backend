@@ -105,6 +105,51 @@ class NutritionPipeline:
 
         }
 
+    def process_parsed_label(self, parsed_label):
+        """
+        Executes the pipeline starting from an already
+        structured parsed_label (Gemini output).
+
+        Skips the OCR parser completely.
+        """
+
+        # Step 1
+        converted_features = self.converter.convert_all(
+            parsed_label
+        )
+
+        # Step 2
+        validated_features = self.validator.validate(
+            converted_features
+        )
+
+        # Step 3
+        analysis = self.engine.evaluate(
+            converted_features
+        )
+
+        # Step 4
+        model_input = self.validator.to_model_input(
+            validated_features
+        )
+
+        # Step 5
+        prediction = self.predictor.predict(
+            model_input
+        )
+
+        return {
+
+            "parsed_label": parsed_label,
+
+            "ml_features": validated_features,
+
+            "analysis": analysis.to_dict(),
+
+            "prediction": prediction
+
+        }
+
 
 # ----------------------------------------------------------------------
 # Standalone Test
